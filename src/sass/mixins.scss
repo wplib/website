@@ -1,0 +1,167 @@
+/* Main Colors */
+$mainColor: #135087;
+$mainColor2: #2f7fba;
+$mainColor3: #15548d;
+$mainColor4: #E4E4E4;
+
+$white: #FFFFFF;
+$black: #000000;
+
+
+/* Mixins Helpers */
+@mixin attr-x($attr, $attr-count: 10, $attr-steps: 10, $unit: '%') {
+    $attr-list: null;
+    @for $i from 1 through $attr-count {
+        $attr-value: $attr-steps * $i;
+    
+        .#{$attr}#{$attr-value} {
+            #{$attr}: #{$attr-value}#{$unit};
+        }
+  
+        $attr-list: append($attr-list, unquote(".#{$attr}-#{$attr-value}"), comma);
+    }
+  
+    #{$attr-list} {
+        //append style to all classes
+    }
+}
+
+@mixin text-align($align: left) {
+    text-align: $align !important;
+}
+
+@mixin backgroundColor($color: initial) {
+    background-color: $color;
+}
+
+@mixin backgroundImage($url, $repeat: repeat, $attachment: scroll, $position: center) {
+    background-color: transparent;
+    background: {
+        image: url($url);
+        repeat: $repeat;
+        attachment: $attachment;
+        position: $position;
+    }
+}
+
+@mixin push--auto {
+    margin: { 
+        left: auto;
+        right: auto;
+    }
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false){
+    @include pseudo($pos: $position);
+    width: 0;
+    height: 0;
+    @if $round {
+        border-radius: 3px;
+    }
+    @if $direction == down {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+        margin-top: 0 - round( $size / 2.5 );
+    } @else if $direction == up {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+        margin-bottom: 0 - round( $size / 2.5 );
+    } @else if $direction == right {
+        border-top: round($size / 2) solid transparent;
+        border-bottom: round($size / 2) solid transparent;
+        border-left: $size solid $color;
+        margin-right: -$size;
+    } @else if  $direction == left {
+        border-top: round( $size / 2 ) solid transparent;
+        border-bottom: round( $size / 2 ) solid transparent;
+        border-right: $size solid $color;
+        margin-left: -$size;
+    }
+}
+
+/*
+input,  
+textarea {  
+    @include input-placeholder {
+        color: $grey;
+    }
+}
+*/
+@mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+
+
+@mixin truncate($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin x-user-select ($value: none) {
+	-webkit-user-select: $value;
+	   -moz-user-select: $value;
+	    -ms-user-select: $value;
+	        user-select: $value;
+}
+
+@mixin x-user-drag ($value: none) {            
+    -webkit-user-drag: $value;
+     -khtml-user-drag: $value;
+       -moz-user-drag: $value;
+         -o-user-drag: $value;
+            user-drag: $value;
+}
+
+
+// generic transform
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+    -o-transform: $transforms;
+    -ms-transform: $transforms;
+    -webkit-transform: $transforms;
+    transform: $transforms;
+}
+// rotate
+@mixin rotate ($deg) {
+    @include transform(rotate(#{$deg}deg));
+}
+
+// scale
+@mixin scale($scale) {
+    @include transform(scale($scale));
+} 
+// translate
+@mixin translate ($x, $y) {
+    @include transform(translate($x, $y));
+}
+// skew
+@mixin skew ($x, $y) {
+    @include transform(skew(#{$x}deg, #{$y}deg));
+}
+//transform origin
+@mixin transform-origin ($origin) {
+ moz-transform-origin: $origin;
+      -o-transform-origin: $origin;
+     -ms-transform-origin: $origin;
+ -webkit-transform-origin: $origin;
+       transform-origin: $origin;
+}
+
+@mixin x-transition ($values...) {
+	-webkit-transition: $values;
+	        transition: $values;
+}

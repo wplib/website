@@ -1,0 +1,186 @@
+/* @imports */
+@import "_typography";
+@import "mixins";
+
+
+/* FONT SIZE */
+@include attr-x('font-size', 40, 2, 'px'); // Loop between 2px and 40px skipping of 2 and 2
+
+/* Width sizes */
+@include attr-x('width'); // Loop between 10% and 100% skipping of 10 and 10
+
+/* Height sizes */
+@include attr-x('height', 10, 10, 'px'); // Loop between 10% and 100% skipping of 10 and 10
+
+/* MARGINS */
+.margin0 { margin: 0 !important; }
+@include attr-x('margin-top', 80, 5, 'px');
+@include attr-x('margin-right', 20, 5, 'px');
+@include attr-x('margin-bottom', 80, 5, 'px');
+@include attr-x('margin-left', 20, 5, 'px');
+@include attr-x('margin', 20, 5, 'px');
+// Loops between 5px and 100px skipping of 5 and 5
+
+/* PADDINGS */
+.padding0 { padding: 0 !important; }
+@include attr-x('padding-top', 60, 5, 'px');
+@include attr-x('padding-right', 60, 5, 'px');
+@include attr-x('padding-bottom', 60, 5, 'px');
+@include attr-x('padding-left', 60, 5, 'px');
+@include attr-x('padding', 40, 5, 'px');
+// Loops between 5px and 100px skipping of 5 and 5
+
+// Line Heights
+@include attr-x('line-height', 70, 10, 'px');
+
+/* Global Attributes */
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: $mainColor;
+    margin: 0;
+    a,
+    button {
+        @include x-transition(.2s all linear);
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.container,
+.container-fluid {
+    max-width: calc(100% - 2rem) !important; // Fixes containers from stretching too wide for the screen
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    &.wrap {
+        box-sizing: border-box !important;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+    }
+
+    .row {
+        margin-left: -1rem !important;
+        margin-right: -1rem !important;
+    }
+}
+
+.light {
+    font: {
+        weight: 100;
+    }
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-center {
+    @include text-align(center);
+}
+
+.bg-primary {
+    @include backgroundColor($mainColor);
+    &.bg-rectangle {
+        position: relative;
+        &::after {
+            @include pseudo();
+            @include backgroundImage('../images/pattern.jpg');
+            height: calc(100% - 45%) ;
+            width: 100%;
+            bottom: 0;
+            z-index: 0 !important;
+        }
+        & > div {
+            z-index: 2 !important;
+            position: relative;
+        }
+    }
+}
+
+.bg-secondary {
+    @include backgroundColor($mainColor2);
+}
+
+.bg-third {
+    @include backgroundColor($mainColor3);
+}
+
+.bg-fourth {
+    @include backgroundColor($mainColor4);
+}
+
+.text-default {
+    color: $white;
+}
+
+.select-none {
+    @include x-user-select();
+}
+
+.drag-none {
+    @include x-user-drag();
+}
+
+.cur {
+    &.default {
+        cursor: default;
+    }
+    &.pointer {
+        cursor: pointer;
+    }
+}
+
+.line {
+    display: block;
+    border: .2em solid $mainColor;
+    &.large-line {
+        height: 1em;
+        width: 100%;
+        border: none !important;
+        @include backgroundColor($mainColor4);
+    }
+}
+
+.card {
+    .card-media {
+        @include x-user-drag();
+        margin: {
+            bottom: 1.5em;
+        }
+        .media-description {
+            @include x-user-select();
+            margin: 10px 0 20px;
+            padding: {
+                top: 20px;
+            }
+            border: {
+                top: 1px solid $mainColor;
+            }
+            font: {
+                size: 16px;
+            }
+        }
+    }
+}
+
+.button {
+    color: $white;
+    text-decoration: none !important;
+    padding: 1.2em 0.1em;
+    border-radius: 0;
+    font-size: initial;
+    display: block;
+    margin: .2em 0;
+    letter-spacing: 1.5px;
+    &:not(:last-child) {
+        margin: {
+            bottom: 1em;
+        }
+    }
+
+    @include text-align(center);
+    &:hover {
+        opacity: .8;
+    }
+}
